@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddLogging();
-builder.Services.AddTransient<NeExceptionMiddleware>();
+builder.Services.AddTransient<GlobalExceptionHandler>();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 var app = builder.Build();
@@ -30,9 +30,7 @@ if (app.Environment.IsDevelopment())
 }
 app.Services.GetRequiredService<ILogger<Program>>(); // Specify the logger type (ILogger<Program>)
 
-//app.ConfigureExceptionHandler(logger);
-//app.ConfigureCustomExceptionMiddleware();
-app.UseMiddleware<NeExceptionMiddleware>();
+app.UseMiddleware<GlobalExceptionHandler>();
 
 app.UseHttpsRedirection();
 
